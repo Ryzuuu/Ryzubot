@@ -1,0 +1,22 @@
+{
+    "ownerNumber": ["6285758050756@s.whatsapp.net","6285758050756@s.whatsapp.net"],
+    "ownerName": "Ezii Ganteng",
+    "botName": "Ryzuubot",
+    "footer": "WhatsApp bot by @eziigntng_",
+    "sessionName": "session",
+    "pathimg": "./media/logo.jpg",
+    "instagram": "imryzuu",
+    "lolkey": "KaysaS",
+    "xteamkey": "Cristian9407",
+    "gamewaktu": 90,
+    "limitCount": 25,
+    "websitex" : "https://youtu.be/xn9RatOrbuI",
+    "gcount": {
+        "prem": 35,
+        "user": 15
+        },
+    "sticker": {
+        "packname": "Ryzuubot",
+        "author": "@eziigntng_"
+    }
+}

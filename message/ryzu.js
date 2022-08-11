@@ -811,7 +811,7 @@ Games Draw, Tidak Ada Pemenang`
         }
 
         // Antispam
-        msgFilter.ResetSpam(ezii.spam)
+        /* msgFilter.ResetSpam(ezii.spam)
 
 		const spampm = () => {
             console.log(color('[ SPAM ]', 'red'), color(moment(msg.messageTimestamp * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`${command} [${args.length}]`))
@@ -822,7 +822,7 @@ Games Draw, Tidak Ada Pemenang`
             console.log(color('[ SPAM ]', 'red'), color(moment(msg.messageTimestamp * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`${command} [${args.length}]`), 'from', color(pushname), 'in', color(groupName))
             msgFilter.addSpam(sender, ezii.spam)
             reply(`Kamu terdeteksi spam bot tanpa jeda, lakukan perintah setelah 5 detik`)
-        }
+        } */
 
         if (isCmd && msgFilter.isFiltered(sender) && !isGroup) return spampm()
         if (isCmd && msgFilter.isFiltered(sender) && isGroup) return spamgr()
@@ -882,13 +882,13 @@ Games Draw, Tidak Ada Pemenang`
             }
         }
         switch (command || triggerSticker()) {
-        case prefix+'menu': case prefix+'help':
+       case prefix+'menu': case prefix+'help':
             addCountCmd('#menu', sender, _cmd)
             let mundur = hitungmundur(7, 9)
             var { download, upload } = await checkBandwidth();
             // ezii.sendMessage(from, { caption: allMenu(ucapanWaktu, pushname, mundur, upload, download, ownerName, botName, jam, tanggal, runtime, isOwner, isPremium, sender, limitCount, limit, gcount, glimit, balance, prefix), location: { jpegThumbnail: fs.readFileSync(setting.pathimg) }, footer: footxt, templateButtons: buttonsDefault, mentions: [sender] })
             ezii.sendMessage(from, { document: fs.readFileSync('./RyzuMedia/theme/cheems.xlsx'), caption: allMenu(ucapanWaktu, pushname, mundur, upload, download, ownerName, botName, jam, tanggal, runtime, isOwner, isPremium, sender, limitCount, limit, gcount, glimit, balance, prefix), mimetype: `${docs}`, fileName: `Hai kak ${pushname}`, jpegThumbnail: fs.readFileSync(setting.pathimg), footer: footxt, templateButtons: buttonsDefault, mentions: [sender] }, { quoted: msg })
-            break
+            break 
         case prefix+'infobot': case prefix+'info': case prefix+'botinfo':
             addCountCmd('#infobot', sender, _cmd)
             var capt = `_*${botName} Information*_
@@ -1917,7 +1917,7 @@ ${prefix}nuliskiri Jangan Lupa Donasi`)
             var nilai_two = Number(args[2])
             reply(`${nilai_one / nilai_two}`)
             break
-        case 'p': case 'proses':
+        case prefix+'p': case prefix+'proses':
             if (!isGroup) return
             if (!isOwner && !isGroupAdmins) return
             if (!isQuotedMsg) return
@@ -1925,7 +1925,7 @@ ${prefix}nuliskiri Jangan Lupa Donasi`)
             let proses = `「 *TRANSAKSI PENDING* 」\n\n\`\`\`📆 TANGGAL : ${tanggal}\n⌚ JAM     : ${jam}\n✨ STATUS  : Pending\`\`\`\n\n📝 Catatan :\n${quotedMsg.chats}\n\nPesanan @${numb.split("@")[0]} sedang di proses!`
             mentions(proses, [numb], true)
             break
-        case 'd': case 'done':
+        case prefix+'d': case prefix+'done':
             if (!isGroup) return
             if (!isOwner && !isGroupAdmins) return
             if (!isQuotedMsg) return
@@ -2091,7 +2091,7 @@ _Silahkan Pilih Format yang ada dibawah_`
                 ezii.sendMessage("6285758050756@s.whatsapp.net", { text: `${command} error : ${e}` })
             })
             break
-        case prefix+'igdl': case prefix+'instagram': case prefix+'ig':
+       /*  case prefix+'igdl': case prefix+'instagram': case prefix+'ig':
             if (isBanChat) return reply(mess.banChat)
             if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
             if (args.length < 2) return reply(`Gunakan dengan cara ${command} *url*\n\n_Contoh_\n\n${command} https://www.instagram.com/p/CWR_S4BF0mt/?utm_medium=copy_link`)
@@ -2141,6 +2141,42 @@ _Silahkan Pilih Format yang ada dibawah_`
                 reply(mess.error.api)
                 ezii.sendMessage("6285758050756@s.whatsapp.net", { text: `${command} error : ${e}` })
             })
+            break */
+            case prefix+'ig': case prefix+'instagram': case prefix+'ig': case prefix+'igdl': case prefix+'igphoto': case prefix+'instaphoto': case prefix+'instafoto': case prefix+'igfoto': case prefix+'igvideo': case prefix+'instavideo': case prefix+'instavid': case prefix+'igreels': case prefix+'instareels': case prefix+'instareel': case prefix+'igtv': case prefix+'instatv':
+            if (isBanChat) return reply(mess.banChat)
+            if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+            if (!text) return reply(`Gunakan dengan cara ${prefix + command} *url*\n\n_Contoh_\n\n${prefix + command} https://www.instagram.com/reel/Cf6Ec_xPGcP/?igshid=YmMyMTA2M2Y=`)
+            await reply(mess.wait)
+            const {instagramdl, instagramdlv2,instagramStory,instagramStoryv2} = require ( '@bochilteam/scraper')
+instagramdl(args[0]).then(async data =>{
+for(let i = 0; i < data.length; i++){
+sendFileFromUrl(from, data[i].url, `Request by ${pushname}`, msg)
+}
+limitAdd(sender, limit)
+}).catch((err) => {
+                    reply("Server sedang eror\nSilahkan cek link nya mungkin private. Jika tidak, ulangi command yang sama")
+                })
+        break
+		case prefix+'igstory': case prefix+'instastory':  case prefix+'instagramstory': 
+            if (isBanChat) return reply(mess.banChat)
+            if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+            if (!text) return reply(`Gunakan dengan cara ${prefix + command} *username*\n\n_Contoh_\n\n${prefix + command} ohyziro`)
+            pepe = `${q}`
+            hxz.igstory(pepe).then(async result => {
+            	for(let i of result.medias){
+            	if(i.url.includes('mp4')){
+                    let link = await getBuffer(i.url)
+                    ezii.sendMessage(from,{video: link, caption: `Instagram • ${i.type}`}, {quoted:msg})
+                } else {
+                    let link = await getBuffer(i.url)
+                    ezii.sendMessage(from,{image: link,caption: `Instagram • ${i.type}`}, {quoted:msg})         
+                }
+            }
+            limitAdd(sender, limit)
+            })
+            .catch((err) => {
+                    reply("Server sedang eror")
+                })
             break
         /*case prefix+'tiktok':
             if (isBanChat) return reply(mess.banChat)
@@ -2165,19 +2201,18 @@ _Silahkan Pilih Format yang ada dibawah_`
                 reply(mess.error.api)
                 ezii.sendMessage("6285758050756@s.whatsapp.net", { text: `${command} error : ${e}` })
             })
-            break*/
+            break */                             
         case prefix+'tiktok':
             if (isBanChat) return reply(mess.banChat)
             if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
             if (args.length < 2) return reply(`Gunakan dengan cara ${command} *url*\n\n_Contoh_\n\n${command} https://vt.tiktok.com/ZSduDmwCq/?k=1`)
             if (!isUrl(args[1])) return reply(mess.error.Iv)
             if (!args[1].includes('tiktok')) return reply(mess.error.Iv)
-            reply(mess.wait)
             addCountCmd('#tiktok', sender, _cmd)
             bochil.tiktokdlv3(args[1]).then( data => {
                 ezii.sendMessage(from, {
                 	document: fs.readFileSync('./RyzuMedia/theme/cheems.xlsx'),
-                    caption: `*TIKTOK-DOWNLOADER*\n\n🗒️ Title : ${data.description}\n👤 Username : ${data.nickname}\n\n_Silahkan Pilih Format yang ada dibawah_`,
+                    caption: `*TIKTOK-DOWNLOADER*\n\nSilahkan Pilih Format Yang Ada Dibawah.`,
                     footer: footxt,
                     mimetype: `${docs}`,
                     fileName: `Hai kak ${pushname}`,
@@ -2193,8 +2228,8 @@ _Silahkan Pilih Format yang ada dibawah_`
                 reply(mess.error.api)
                 ezii.sendMessage("6285758050756@s.whatsapp.net", { text: `${command} error : ${e}` })
             })
-            break
-        case prefix+'tiktoknowm':
+            break 
+        /* case prefix+'tiktoknowm':
             if (isBanChat) return reply(mess.banChat)
             if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
             if (args.length < 2) return reply(`Gunakan dengan cara ${command} *url*\n\n_Contoh_\n\n${command} https://vt.tiktok.com/ZSduDmwCq/?k=1`)
@@ -2227,6 +2262,55 @@ _Silahkan Pilih Format yang ada dibawah_`
                 reply(mess.error.api)
                 ezii.sendMessage("6285758050756@s.whatsapp.net", { text: `${command} error : ${e}` })
             })
+		    break */
+        case prefix+'tiktokwm': case prefix+'tiktoknowm': case prefix+'tiktok':{
+            if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+            if (!text) return reply(`Gunakan dengan cara ${command} *url*\n\n_Contoh_\n\n${command} https://vt.tiktok.com/ZSR6gUyXN/?k=1`)
+            if (!isUrl(text)) return reply(mess.error.Iv)
+            if (!text.includes('tiktok')) return reply(mess.error.Iv)
+            reply(mess.wait)
+            const { tiktokdl, tiktokdlv3 } = require ('@bochilteam/scraper')
+            addCountCmd('#tiktok', m.sender, _cmd)
+            try{
+		tiktokdl(text)
+    		.then(result => {
+    		const { no_watermark, no_watermark2, no_watermark_raw } = result.video
+    ezii.sendMessage(from, {video : {url : no_watermark2}, caption : "Nih", mimetype:'video/mp4'}, {quoted:msg})
+    })} catch {
+    	tiktokdlv3(text)
+    		.then(result => {
+    		const { no_watermark, no_watermark2 } = result.video
+    ezii.sendMessage(from, {video : {url : no_watermark2}, caption : "Nih", mimetype:'video/mp4'}, {quoted:msg})    	
+    }).catch((err) => {
+                    reply(mess.error.api)
+                })
+}	
+}
+            break
+			
+		case prefix+'tiktokaudio':{
+		    if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
+		    if (!text) return reply(`Gunakan dengan cara ${command} *url*\n\n_Contoh_\n\n${command} https://vt.tiktok.com/ZSR6gUyXN/?k=1`)
+		    if (!isUrl(text)) return reply(mess.error.Iv)
+		    if (!text.includes('tiktok')) return reply(mess.error.Iv)
+		    reply(mess.wait)
+		const { tiktokdl, tiktokdlv3 } = require ('@bochilteam/scraper')
+		    addCountCmd('#tiktokaudio', m.sender, _cmd)
+		try{
+		    tiktokdl(text)
+    		.then(result => {
+    		const { no_watermark, no_watermark2, no_watermark_raw } = result.video
+    ezii.sendMessage(from, {document : {url : no_watermark}, mimetype: 'audio/mpeg', fileName: `${text}.mp3`}, {quoted:msg})
+    })} catch {
+    	tiktokdlv3(text)
+    		.then(result => {
+    		const { no_watermark, no_watermark2 } = result.video
+    ezii.sendMessage(from, {document : {url : no_watermark}, mimetype: 'audio/mpeg', fileName: `${text}.mp3`}, {quoted:msg})    	
+    }).catch((err) => {
+                    reply(mess.error.api)
+                })
+}	
+}
 		    break
         case prefix+'facebook': case prefix+'fbdl':
             if (isBanChat) return reply(mess.banChat)
@@ -3840,7 +3924,7 @@ Nick : ${data.result}`
                 reply(`Reply video/audio dan sertakan caption ${prefix}whatmusic`)
             }
             break
-         case prefix+'igtv': {	            
+       /*  case prefix+'igtv': {	            
                 if (isBanChat) return reply(mess.banChat)
                 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
                 if (!q) return reply(`Linknya?`)
@@ -3857,8 +3941,8 @@ Nick : ${data.result}`
                 ezii.sendMessage("6285758050756@s.whatsapp.net", { text: `${command} error : ${e}` })
             })
             }
-            break
-        case prefix+'igstalk': case prefix+'stalkig':
+            break */
+        /* case prefix+'igstalk': case prefix+'stalkig':
             if (isBanChat) return reply(mess.banChat)
             if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
             if (args.length < 2) return reply(`Kirim perintah ${command} Username\nContoh : ${command} arsrfi.jpg`)
@@ -3873,7 +3957,7 @@ Nick : ${data.result}`
                 reply(mess.error.api)
                 ezii.sendMessage("6285758050756@s.whatsapp.net", { text: `${command} error : ${e}` })
             })
-            break
+            break */
         case prefix+'googlelens': case prefix+'glens': case prefix+'searchbyimage': case prefix+'golens': case prefix+'searchbyimg':
             if (isBanChat) return reply(mess.banChat)
             if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
